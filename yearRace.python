@@ -1,0 +1,95 @@
+import pandas as pd
+import csv
+
+from bokeh.palettes import Spectral4
+from bokeh.plotting import figure, output_file, show
+#from bokeh.sampledata.stocks import AAPL, IBM, MSFT, GOOG
+
+
+def _read_data(name):
+    '''
+
+    '''
+    fixNulls = pd.read_csv(name)
+    
+    modifiedCSV = fixNulls.fillna(0.0)
+    
+    modifiedCSV['start'], modifiedCSV['end'] = zip(*modifiedCSV['School Year'].map(lambda x: x.split('-')))
+    del modifiedCSV['School Year']
+    del modifiedCSV['end']
+    #modifiedCSV = modifiedCSV.loc[modifiedCSV['start'] == modifiedCSV['start'], 'Totals Female: Asians (Tot. F)'].sum()
+    modifiedCSV['start'] = modifiedCSV['start'].apply(pd.to_numeric)
+    pd.to_numeric(modifiedCSV['start'])
+    #print modifiedCSV['start']
+    
+    modifiedCSV = modifiedCSV.sort_values(by='start')
+    
+    for index,row in modifiedCSV.iterrows():
+    
+    	modifiedCSV['asians'] = modifiedCSV.groupby(['start']).sum()    
+
+    #modifiedCSV.sort_values(axis=9)
+    #print modifiedCSV['start']
+    print modifiedCSV
+    
+    modifiedCSV.to_csv('modifiedCSV.csv',index=False)
+    
+    data = {
+        'numbs' : [],
+        'asians' : [],
+        'low' : [],
+        'close' : [],
+        'volume' : [],
+        'adj_close': [],
+	'colH': [],
+	'colI': [],
+	'date': [],
+    }
+    with open('modifiedCSV.csv','rb') as f:
+        next(f)
+        reader = csv.reader(f, delimiter=str(','))
+        for row in reader:
+            numbs, asians, low, close, volume, adj_close, colH, colI,date = row
+	    data['numbs'].append(float(numbs))
+            data['asians'].append(float(asians))
+            data['low'].append(float(low))
+            data['close'].append(float(close))
+            data['volume'].append(float(volume))
+            data['adj_close'].append(float(adj_close))
+	    data['colH'].append(float(colH))
+	    data['colI'].append(float(colI))
+   	    data['date'].append(date)
+    return data
+
+
+#asians = pd.read_csv("year_vs_race.csv")
+#print asians.isnull().sum()
+
+#data['title']  # as a Series
+#data['title'].values 
+
+p = figure(plot_width=800, plot_height=250)
+p.title.text = 'Click on legend entries to mute the corresponding lines'
+
+asians = _read_data('year_vs_race.csv')
+mex = _read_data('year_vs_race.csv')
+
+for data, name, color in zip([asians,mex], ["asians","mex"], Spectral4):
+    df = pd.DataFrame(data)
+    #df = df.sort_values(by='date')
+    df['date'] = pd.to_datetime(df['date'],format = "%Y")
+    p.line(df['date'], df['asians'], line_width=2, color=color, alpha=0.8,
+           muted_color=color, muted_alpha=0.2, legend=name)
+
+for data, name, color in zip([mex], ["mex"], Spectral4):
+    df = pd.DataFrame(data)
+    df['date'] = pd.to_datetime(df['date'].str[-4:].astype(int),format = "%Y")
+    p.line(df['date'], df['colH'], line_width=2, color=color, alpha=0.8,
+           muted_color=color, muted_alpha=0.2, legend=name)
+
+p.legend.location = "top_left"
+p.legend.click_policy="mute"
+
+output_file("interactive_legend.html", title="interactive_legend.py example")
+
+show(p)
