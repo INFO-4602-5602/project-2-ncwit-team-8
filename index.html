@@ -57,7 +57,7 @@
 			  .selectAll("g");
 			
 			//Load the data
-			d3.json("sankeyTestJSON.json", function(error, graph) {
+			d3.json("data/sankeyData.json", function(error, graph) {
 				if (error) throw error;
 				
 				sankey(graph);
@@ -74,7 +74,7 @@
 				//Add link title 
 				link.append("title") 
 					.text(function(d) {
-						return d.source.name + " -> " +
+						return d.source.name + " → " +
 							d.target.name + "\n" + format(d.value);});
 				
 				//Add the nodes
