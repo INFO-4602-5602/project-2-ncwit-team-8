@@ -3,6 +3,7 @@
 		<title>Project 2</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://d3js.org/d3.v4.js"></script>
+		<script src="sankey.js"></script>
 		<link rel="stylesheet" href="project2.css">
 	</head>
 	
@@ -11,25 +12,25 @@
 			<h1>Group 8</h1>
 		</div>
 		
-		<select id="visSel">
-			<option value="vis1" selected="selected">Visualization 1</option>
-			<option value="vis2">Visualization 2</option>
-			<option value="vis3">Visualization 3</option>
-		</select>
-		
-		<div id="vis1">
-			<h2>This is where we will put our first visualization</h2>
-		</div>
-		
-		<div id="vis2">
-			<h2>This is where we will put our second vis</h2>
-		</div>
-		
-		<div id="vis3">
-			<h2>This is where we will put our third vis</h2>
+		<div id="sankey">
+			<h2>Sankey diagram breaking down the distribution of female majors</h2>
 		</div>
 		
 		<script type="text/javascript">
+			var margin = {top: 30, bottom: 30, left: 50, right: 50};
+			width = 1000 - margin.left - margin.right,
+			height = 550 - margin.top - margin.bottom;
+			var units = "Students";
+			var formatNumber = d3.format(",.0f"),  //Zero decimal places
+				format = function(d)  {return formatNumber(d) + " " + units;},
+				color = d3.scale.category20();
+			
+			var svg = d3.select("#sankey").append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			
 			
 		</script>
 	</body>
