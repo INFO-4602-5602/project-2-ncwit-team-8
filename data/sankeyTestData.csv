@@ -1,0 +1,13 @@
+source,target,value
+Total,Engineering,1000
+Total,Non-engineering,500
+Engineering,Computer Science,500
+Engineering,Electrical Engineering,250
+Engineering,Aerospace,250
+Non-engineering,Business,300
+Non-engineering,Studio Art,200
+Computer Science,Web development,200
+Computer Science,Machine learning,200
+Computer Science,Blah,100
+Business,Accounting,100
+Business,Sales,200
