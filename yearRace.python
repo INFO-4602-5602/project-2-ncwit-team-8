@@ -72,6 +72,8 @@ def _read_data(name):
 
 p = figure(plot_width=1000, plot_height=450)
 p.title.text = 'Total Number of Female Stem Majors per Year by Race'
+p.xaxis.axis_label = 'Year'
+p.yaxis.axis_label = 'Number of Stem Majors'
 
 asns = _read_data('year_vs_race.csv')
 blks = _read_data('year_vs_race.csv')
