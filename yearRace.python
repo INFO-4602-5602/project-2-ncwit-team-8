@@ -1,95 +1,132 @@
+#Team 8
+#Project 2
+#Viz: Multiline plot
+#Total Number of Female Stem Majors per Year by Race (Female)
+#Uses year_vs_race.csv
+
+
 import pandas as pd
 import csv
 
 from bokeh.palettes import Spectral4
 from bokeh.plotting import figure, output_file, show
-#from bokeh.sampledata.stocks import AAPL, IBM, MSFT, GOOG
 
 
 def _read_data(name):
-    '''
+    
 
-    '''
+    #Create a DataFrame
     fixNulls = pd.read_csv(name)
     
+    #Input 0.0 for all null spots
     modifiedCSV = fixNulls.fillna(0.0)
     
-    modifiedCSV['start'], modifiedCSV['end'] = zip(*modifiedCSV['School Year'].map(lambda x: x.split('-')))
+    #Parse the year category so that its only one value
+    modifiedCSV['Year'], modifiedCSV['end'] = zip(*modifiedCSV['School Year'].map(lambda x: x.split('-')))
     del modifiedCSV['School Year']
     del modifiedCSV['end']
-    #modifiedCSV = modifiedCSV.loc[modifiedCSV['start'] == modifiedCSV['start'], 'Totals Female: Asians (Tot. F)'].sum()
-    modifiedCSV['start'] = modifiedCSV['start'].apply(pd.to_numeric)
-    pd.to_numeric(modifiedCSV['start'])
-    #print modifiedCSV['start']
+       
+    #Change the Year category from strings to Ints
+    modifiedCSV['Year'] = modifiedCSV['Year'].apply(pd.to_numeric)
+    pd.to_numeric(modifiedCSV['Year'])
+   
+    #Sort the Years in increasing order
+    modifiedCSV = modifiedCSV.sort_values(by='Year')
     
-    modifiedCSV = modifiedCSV.sort_values(by='start')
-    
-    for index,row in modifiedCSV.iterrows():
-    
-    	modifiedCSV['asians'] = modifiedCSV.groupby(['start']).sum()    
-
-    #modifiedCSV.sort_values(axis=9)
-    #print modifiedCSV['start']
+    #For Debuging
     print modifiedCSV
     
+    #Convert it back in to CSV 
     modifiedCSV.to_csv('modifiedCSV.csv',index=False)
     
+    #Dictionary of key array pairs
     data = {
-        'numbs' : [],
+        'indx' : [],
         'asians' : [],
-        'low' : [],
-        'close' : [],
-        'volume' : [],
-        'adj_close': [],
-	'colH': [],
-	'colI': [],
-	'date': [],
+        'blacks' : [],
+        'hispanics' : [],
+        'nativAmer' : [],
+        'nativHaw': [],
+	'twoMore': [],
+	'whites': [],
+	'year': [],
     }
+
+    #Read in all the data 
     with open('modifiedCSV.csv','rb') as f:
         next(f)
         reader = csv.reader(f, delimiter=str(','))
         for row in reader:
-            numbs, asians, low, close, volume, adj_close, colH, colI,date = row
-	    data['numbs'].append(float(numbs))
+            indx, asians, blacks, hispanics, nativAmer, nativHaw, twoMore, whites, year = row
+	    data['indx'].append(float(indx))
             data['asians'].append(float(asians))
-            data['low'].append(float(low))
-            data['close'].append(float(close))
-            data['volume'].append(float(volume))
-            data['adj_close'].append(float(adj_close))
-	    data['colH'].append(float(colH))
-	    data['colI'].append(float(colI))
-   	    data['date'].append(date)
+            data['blacks'].append(float(blacks))
+            data['hispanics'].append(float(hispanics))
+            data['nativAmer'].append(float(nativAmer))
+            data['nativHaw'].append(float(nativHaw))
+	    data['twoMore'].append(float(twoMore))
+	    data['whites'].append(float(whites))
+   	    data['year'].append(year)
     return data
 
 
-#asians = pd.read_csv("year_vs_race.csv")
-#print asians.isnull().sum()
+p = figure(plot_width=1000, plot_height=450)
+p.title.text = 'Total Number of Female Stem Majors per Year by Race'
 
-#data['title']  # as a Series
-#data['title'].values 
+asns = _read_data('year_vs_race.csv')
+blks = _read_data('year_vs_race.csv')
+hsp= _read_data('year_vs_race.csv')
+ntvA = _read_data('year_vs_race.csv')
+ntvH = _read_data('year_vs_race.csv')
+twM = _read_data('year_vs_race.csv')
+wht = _read_data('year_vs_race.csv')
+yr = _read_data('year_vs_race.csv')
 
-p = figure(plot_width=800, plot_height=250)
-p.title.text = 'Click on legend entries to mute the corresponding lines'
-
-asians = _read_data('year_vs_race.csv')
-mex = _read_data('year_vs_race.csv')
-
-for data, name, color in zip([asians,mex], ["asians","mex"], Spectral4):
+for data, name, color in zip([asns], ["Asians"], Spectral4):
     df = pd.DataFrame(data)
-    #df = df.sort_values(by='date')
-    df['date'] = pd.to_datetime(df['date'],format = "%Y")
-    p.line(df['date'], df['asians'], line_width=2, color=color, alpha=0.8,
-           muted_color=color, muted_alpha=0.2, legend=name)
-
-for data, name, color in zip([mex], ["mex"], Spectral4):
+    df['year'] = pd.to_datetime(df['year'],format = "%Y")
+    p.line(df['year'], df['asians'], line_width=2, color='Red', alpha=0.8,
+           muted_color='Red', muted_alpha=0.2, legend=name)
+  
+for data, name, color in zip([blks], ["African Americans"], Spectral4):
     df = pd.DataFrame(data)
-    df['date'] = pd.to_datetime(df['date'].str[-4:].astype(int),format = "%Y")
-    p.line(df['date'], df['colH'], line_width=2, color=color, alpha=0.8,
+    df['year'] = pd.to_datetime(df['year'],format = "%Y")
+    p.line(df['year'], df['blacks'], line_width=2, color='Green', alpha=0.8,
+           muted_color='Green', muted_alpha=0.2, legend=name)
+
+for data, name, color in zip([hsp], ["Hispanics"], Spectral4):
+    df = pd.DataFrame(data)
+    df['year'] = pd.to_datetime(df['year'],format = "%Y")
+    p.line(df['year'], df['hispanics'], line_width=2, color='Yellow', alpha=0.8,
+           muted_color='Yellow', muted_alpha=0.2, legend=name)
+
+for data, name, color in zip([ntvA], ["Native Americans"], Spectral4):
+    df = pd.DataFrame(data)
+    df['year'] = pd.to_datetime(df['year'],format = "%Y")
+    p.line(df['year'], df['nativAmer'], line_width=2, color='Purple', alpha=0.8,
+           muted_color='Purple', muted_alpha=0.2, legend=name)
+
+for data, name, color in zip([ntvH], ["Native Hawaiin"], Spectral4):
+    df = pd.DataFrame(data)
+    df['year'] = pd.to_datetime(df['year'],format = "%Y")
+    p.line(df['year'], df['nativHaw'], line_width=2, color='Orange', alpha=0.8,
+           muted_color='Orange', muted_alpha=0.2, legend=name)
+
+for data, name, color in zip([twM], ["Two or More Races"], Spectral4):
+    df = pd.DataFrame(data)
+    df['year'] = pd.to_datetime(df['year'],format = "%Y")
+    p.line(df['year'], df['twoMore'], line_width=2, color='Black', alpha=0.8,
+           muted_color='Black', muted_alpha=0.2, legend=name)
+
+for data, name, color in zip([wht], ["Whites"], Spectral4):
+    df = pd.DataFrame(data)
+    df['year'] = pd.to_datetime(df['year'],format = "%Y")
+    p.line(df['year'], df['whites'], line_width=2, color=color, alpha=0.8,
            muted_color=color, muted_alpha=0.2, legend=name)
 
 p.legend.location = "top_left"
 p.legend.click_policy="mute"
 
-output_file("interactive_legend.html", title="interactive_legend.py example")
+output_file("interactive_legend.html", title="Race vs Year")
 
 show(p)
