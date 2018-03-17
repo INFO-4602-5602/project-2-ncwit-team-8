@@ -41,7 +41,7 @@ def _read_data(name):
     
     #Dictionary of key array pairs
     data = {
-        'indx' : [],
+        'index' : [],
         'asians' : [],
         'blacks' : [],
         'hispanics' : [],
@@ -57,8 +57,8 @@ def _read_data(name):
         next(f)
         reader = csv.reader(f, delimiter=str(','))
         for row in reader:
-            indx, asians, blacks, hispanics, nativAmer, nativHaw, twoMore, whites, year = row
-	    data['indx'].append(float(indx))
+            index, asians, blacks, hispanics, nativAmer, nativHaw, twoMore, whites, year = row
+            data['index'].append(float(index))
             data['asians'].append(float(asians))
             data['blacks'].append(float(blacks))
             data['hispanics'].append(float(hispanics))
