@@ -20,7 +20,7 @@ How to run
 
 About
 
-This visualization illustrates the distribution in majors enrolled in by women. The Sankey diagram shows the amount of women in each program or sub-program by the width of each path.
+This visualization illustrates the distribution in majors enrolled in by women. The Sankey diagram shows the amount of women in each program or sub-program by the width of each path. The interactive aspect of the visualization is the ability to hover over a link between two rings and a popup of how many students in that category will appear. We chose this visualization idea because it aesthetically encompasses everything we wanted to portray without being cluttered.
 
 ### Visualization Two
 
@@ -32,7 +32,8 @@ How to run
 2) run "python yearRace.python"
 ```
 About
-This visualization exhibits the diversity of the women in STEM programs over time.
+
+This visualization exhibits the diversity of the women in STEM programs over time. The use of multiple lines makes it easy for users to compare data and recognize trends without clutter. This visualization reveals that the amount of women going into STEM programs have generally increased since 2001.
 
 
 ### Visualization Three
