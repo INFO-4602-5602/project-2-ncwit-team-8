@@ -73,6 +73,6 @@ ___
 
 * **Joshua Griffiths III** - Developer - [Github](https://github.com/joshuaGriffiths)
 * **Jamie Ackerson** - Visualization Prodigy - [Github](https://github.com/jackerson)
-* **Marissa Kelley** - Developer - [LinkedIn](https://www.linkedin.com/in/marissa-kelley/)
+* **Marissa Kelley** - Amateur Developer - [LinkedIn](https://www.linkedin.com/in/marissa-kelley/)
 * **Evan James** - D3 Warrior - [Github](https://github.com/ejames917)
 * **Cole Gendelman** - Angel Investor - [LinkedIn](https://www.linkedin.com/in/cole-gendelman-a9101b5b/)
