@@ -20,6 +20,7 @@ How to run
 
 About
 
+This visualization illustrates the distribution in majors enrolled in by women. The Sankey diagram shows the amount of women in each program or sub-program by the width of each path.
 
 ### Visualization Two
 
@@ -31,7 +32,7 @@ How to run
 2) run "python yearRace.python"
 ```
 About
-This visualization exhibits the diversity of women in STEM programs over time.
+This visualization exhibits the diversity of the women in STEM programs over time.
 
 
 ### Visualization Three
@@ -39,7 +40,6 @@ This visualization exhibits the diversity of women in STEM programs over time.
 Required Software: anaconda
 
 How to run
-
 ```
 1) Open anaconda prompt within project folder
 2) Enter "jupyter notebook"
@@ -65,7 +65,7 @@ ___
 * [Jupyter](http://jupyter.org) - Open Source Web Application
 * [Bokeh](https://bokeh.pydata.org/en/latest/) - Python Interactive data library
 
-___
+
 ## Authors/Roles
 
 * **Joshua Griffiths III** - Developer - [Github](https://github.com/joshuaGriffiths)
